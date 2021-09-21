@@ -1,0 +1,58 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  
+  <div class="row">
+  <a class="navbar-brand" href="#">CONTACT-FORM</a>
+  <button type="button" class="btn btn-outline-success my-2 my-sm-0  float-right" style="float:right;"  (click)="addContact()">Add Contact</button>
+  
+  </div>
+</nav>
+
+
+<form [formGroup]="contactForm">
+ <!---- <button type="button"  class="btn btn-primary"  (click)="addContact()">Add Contact</button>-->
+  <div formArrayName="contacts">
+    <div  *ngFor="let contactFormGroup of contactFormGroups.controls; let i=index"
+      [formGroupName]="i">
+      
+      <h3>Contact {{i+1}}</h3>
+      <button type="button"  class="btn btn-primary" (click)="removeContact(i)">REMOVE</button>
+      
+        <div class="row">
+          <div class="col">
+        
+        <label class="col-sm-2 col-form-label" > First Name <small>*</small></label>
+        <input type="text" class="form-control" formControlName="fname">
+        <p>
+          <small *ngIf="contactForm.get(['contacts', i, 'fname']).errors?.required && formSubmitted">First Name is required</small>
+        </p>
+      </div>
+      <div >
+        <label  class="col-sm-2 col-form-label" >Last Name</label>
+        <input type="text" class="form-control" formControlName="lname">
+        <p></p>
+      </div>
+        </div>
+      </div>
+      <div>
+        <div class="row">
+          <div class="col">
+        <label  class="col-sm-2 col-form-label">Email <small>*</small></label>
+        <input type="text" class="form-control" formControlName="email">
+        <p>
+          <small *ngIf="contactForm.get(['contacts', i, 'email']).errors?.required && formSubmitted">Email is required</small>
+          <small *ngIf="contactForm.get(['contacts', i, 'email']).errors?.email">Please enter a valid Email</small>
+        </p>
+      </div>
+      <div>
+        <label class="col-sm-2 col-form-label">Phone</label>
+        <input type="text" class="form-control" formControlName="phone">
+      </div>
+    </div>
+  </div>
+    </div></div>
+  
+  <div>
+    <p></p>
+    <button type="submit"  class="btn btn-primary mb-2" (click)="onSubmit()">Save</button>
+  </div>
+</form>
